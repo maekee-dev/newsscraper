@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsScraper</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="shortcut icon" href="/favicon.ico">
+	<link rel="icon" sizes="16x16 32x32 64x64" href="/img/icon/favicon.ico">
+	<link rel="icon" type="image/png" sizes="196x196" href="/img/icon/favicon-192.png">
+	<link rel="icon" type="image/png" sizes="160x160" href="/img/icon/favicon-160.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/img/icon/favicon-96.png">
+	<link rel="icon" type="image/png" sizes="64x64" href="/img/icon/favicon-64.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/img/icon/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/img/icon/favicon-16.png">
+	<link rel="apple-touch-icon" href="/img/icon/favicon-57.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/img/icon/favicon-114.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/img/icon/favicon-72.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/img/icon/favicon-144.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/img/icon/favicon-60.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/img/icon/favicon-120.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/img/icon/favicon-76.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/img/icon/favicon-152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/img/icon/favicon-180.png">
+</head>
+<body>
+    <main>
+        <div class="main-body">
+            <div class="article-container">
+                <div class="page-title">
+                    <h1>News Scraper</h1>
+                    <a href="https://www.ilpost.it">https://www.ilpost.it</a>
+                </div>
+                <div class="article-body">
+                    <img id="article-image" src="<%= data.image %>" alt="immagine articolo" loading="lazy">
+                    <span> <%= data.date %></span>
+                    <h2><%= data.title %></h2>
+                    <p><%= data.paragraph %></p>
+                    <a href="<%= data.link %>" target="_blank">Leggi</a>
+                </div>
+            </div>
+            <div class="info-body">
+                <div class="info-title">
+                    <span>@ <a href="/json">/JSON</a></span>
+                </div>
+                <div class="info-container">
+                    <p>
+                        <span class="json-bracket">{</span> <br>
+                            <span class="json-element">title</span>: '<%= data.title %>', <br>
+                            <span class="json-element">paragraph</span>: '<%= data.paragraph %>', <br>
+                            <span class="json-element">image</span>: '<%= data.image %>', <br>
+                            <span class="json-element">link</span>: '<%= data.link %>', <br>
+                            <span class="json-element">date</span>: '<%= data.date %>' <br>
+                            <span class="json-bracket">}</span>
+                    </p>
+                    <div class="logo-container">
+                        <img style="width: 29px; height: 33px;" src="img/nodejs.png" alt="logo node js">
+                        <img style="width: 36px; height: 21px;" src="img/expressjs.png" alt="logo express js">
+                        <img style="width: 28px; height: 25px;" src="img/vercel.png" alt="logo vercel">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/js/gsap.min.js"></script>
+    <script>
+        let articleTl = gsap.timeline({
+            defaults: {
+                ease: 'power4.inOut', 
+            }});
+        articleTl.from('.article-body', {clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', duration: .6})
+        .from('.article-body img, .article-body span, .article-body h2, .article-body p, .article-body a', {
+        y: -20, opacity: 0, stagger: .2
+        })
+        .from('.page-title h1, .page-title a', {y: -20, opacity: 0, stagger: .1, duration: .4})
+        
+        let infoTl = gsap.timeline({
+            defaults: {
+                ease: 'power4.inOut', 
+            }});
+        infoTl.from('.info-container', {clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', duration: .6})
+        .from('.info-container p', {y: -10, rotate: 3, opacity: 0, duration: .8})
+        .from('.logo-container img', {x: -20, opacity: 0, stagger: .2})
+        .from('.info-title', {x: -20, opacity: 0})
+    </script>
+</body>
+</html>
