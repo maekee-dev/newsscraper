@@ -11,5 +11,11 @@
           "src": "/(.*)",
           "dest": "app.js"
         }
-    ]
+    ],
+    "crons": [
+        {
+          "path": "/update/index",
+          "schedule": "0 10 * * *"  
+        }
+      ]
   }

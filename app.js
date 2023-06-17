@@ -1,35 +1,10 @@
-const puppeteer = require('puppeteer-extra')
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const path = require('path')
 const serveStatic = require('serve-static')
-const cron = require('node-cron')
-const { MongoClient } = require('mongodb');
+const { MongoClient } = require('mongodb')
 const express = require('express')
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 
 dotenv.config()
-
-puppeteer.use(StealthPlugin())
-const url = 'https://www.ilpost.it'
-
-const scrapData = async() => {
-    const browser = await puppeteer.launch({ headless: "new" })
-    const page = await browser.newPage()
-    await page.goto(url)
-    const todayDate = getDate()
-    const postData = await page.evaluate((url, todayDate) => {
-        const data = {
-            title: document.querySelector('#content article .entry-content .entry-title a').innerHTML.trim(),
-            paragraph: document.querySelector('#content article .entry-content p a').innerHTML.trim(),
-            image: document.querySelector('#content article .entry-header img').getAttribute('src'),
-            link: document.querySelector('#content article .entry-header a').getAttribute('href'),
-            date: todayDate,
-        }
-        return data
-    }, url, todayDate)
-    await browser.close()
-    return postData
-}
 
 const dbConnect = async() => {
     try{
@@ -40,7 +15,7 @@ const dbConnect = async() => {
         await client.connect()
         return client
     } catch(error){
-        console.error('Cannot connect to db:', error);
+        console.error('Cannot connect to db:', error)
         throw error
     }
 }
@@ -56,20 +31,6 @@ const getData = async() => {
         return data
     } 
     catch(error){ console.error('Cannot read data:', error) } 
-    finally{ if(client) client.close() }
-}
-
-const writeData = async() => {
-    const data = await scrapData()
-    let client
-    try{
-        client = await dbConnect()
-        const db = client.db('ScrapedArticles')
-        const collection = db.collection('Articles')
-        const isOld = await collection.findOne({ title: data.title });
-        if (!isOld) await collection.insertOne(data)
-    } 
-    catch(error){ console.error('Cannot write data:', error) }
     finally{ if(client) client.close() }
 }
 
@@ -104,5 +65,3 @@ const getDate = () => {
     const formattedDate = day + '/' + month + '/' + year
     return formattedDate
 }
-
-cron.schedule('0 * * * *', () => writeData())
