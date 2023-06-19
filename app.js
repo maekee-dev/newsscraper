@@ -56,12 +56,3 @@ app.get('/json', deployData, (_req, res) => {
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`)
 })
-
-const getDate = () => {
-    const now = new Date()
-    const day = now.getDate().toString().padStart(2, '0')
-    const month = (now.getMonth() + 1).toString().padStart(2, '0')
-    const year = now.getFullYear()
-    const formattedDate = day + '/' + month + '/' + year
-    return formattedDate
-}
