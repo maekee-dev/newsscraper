@@ -14,8 +14,8 @@
     ],
     "crons": [
         {
-          "path": "/update/index",
-          "schedule": "30 11 * * *"  
+          "path": "/update/",
+          "schedule": "0 9,18 * * *"  
         }
       ]
   }
