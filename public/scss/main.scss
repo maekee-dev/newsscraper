@@ -132,6 +132,9 @@ main{
             .info-title{
                 padding: 0 1rem .8rem 1rem;
                 font-size: 16px;
+                span{
+                    text-decoration: underline;
+                }
             }
             .info-container{
                 background-color: $color-bg-2;
