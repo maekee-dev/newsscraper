@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-extra')
+const puppeteer = require('puppeteer')
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const path = require('path')
 const serveStatic = require('serve-static')
@@ -8,7 +8,6 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
-puppeteer.use(StealthPlugin())
 const url = 'https://www.ilpost.it'
 
 const dbConnect = async() => {
