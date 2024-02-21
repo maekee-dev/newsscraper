@@ -21,6 +21,9 @@
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "serve-static": "^1.15.0"
   },
+  "pkg": {
+    "assets": "node_modules/puppeteer-extra-plugin-stealth/**/*.*"
+  },
   "devDependencies": {
     "dotenv": "^16.1.4",
     "nodemon": "^2.0.21"
